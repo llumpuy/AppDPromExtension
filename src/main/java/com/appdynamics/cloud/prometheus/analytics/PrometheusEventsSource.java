@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import java.net.URLEncoder;
+
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.HttpClientUtils;
@@ -271,9 +273,12 @@ public class PrometheusEventsSource implements AnalyticsEventsSource, Applicatio
 	}
 
 	private String executePromQueryWithNoAuth(String promQl) throws Throwable {
-		
-		String restEndpoint = this.constructEndpointQuery(promQl);	
-		
+
+		//TODO: review
+		// String restEndpoint = this.constructEndpointQuery(promQl);
+		String restEndpoint = URLEncoder.encode(this.constructEndpointQuery(promQl), "UTF-8");
+		//
+
 		CloseableHttpClient client = HttpClients.createDefault();
 		
 		HttpGet request = new HttpGet(restEndpoint);
