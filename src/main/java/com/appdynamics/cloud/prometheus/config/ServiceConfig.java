@@ -20,6 +20,9 @@ public class ServiceConfig {
     private String awsRegion;
     //private String awsAccessKey;
     //private String awsSecretKey;
+	//TODO: review
+	private String accessToken;
+	//
 	
 	private List<AnalyticsEventsSourceConfig> analyticsEventsSources;
 	
@@ -103,6 +106,17 @@ public class ServiceConfig {
 	public void setAwsRegion(String awsRegion) {
 		this.awsRegion = awsRegion;
 	}
+
+	//TODO: review
+	public String getAcccessToken() {
+		return accessToken;
+	}
+	//
+	//TODO: review
+	public void setAccessToken(String accessToken) {
+		this.awsRegion = accessToken;
+	}
+	//
 
 
 //	public String getAwsAccessKey() {

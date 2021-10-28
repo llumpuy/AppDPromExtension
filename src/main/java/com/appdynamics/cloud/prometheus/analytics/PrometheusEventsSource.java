@@ -38,6 +38,9 @@ public class PrometheusEventsSource implements AnalyticsEventsSource, Applicatio
 	private ServiceConfig serviceConfig;
 	private AnalyticsEventsSourceConfig eventsSourceConfig;
 	private int executionInterval = 1;
+	//TODO: review
+	private String accessToken = "";
+	//
 	private Map<String, String> schemaMap;
 	private static Logger logr;
 	
@@ -60,6 +63,10 @@ public class PrometheusEventsSource implements AnalyticsEventsSource, Applicatio
 		this.eventsSourceConfig = analyticsEventsSourceConfig;
 		this.executionInterval = Integer.parseInt(this.eventsSourceConfig.getExecutionInterval());
 		this.schemaMap = this.getSchemaMap();
+
+		//TODO: review
+		this.accessToken = serviceConfig.getAcccessToken();
+		//
 		
 		logr.carriageReturnInfo();
 		logr.carriageReturnInfo();
@@ -272,6 +279,11 @@ public class PrometheusEventsSource implements AnalyticsEventsSource, Applicatio
 		HttpGet request = new HttpGet(restEndpoint);
 
 		request.addHeader("Accept", "application/json, text/plain, */*");
+
+		//TODO: review
+		request.addHeader("Authorization:Bearer", accessToken);
+		//
+
 		//request.addHeader("Accept", "application/vnd.appd.events+json;v=2");
 
 	    CloseableHttpResponse response = client.execute(request);

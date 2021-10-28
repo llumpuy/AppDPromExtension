@@ -72,7 +72,6 @@ public class AnalyticsEventsSourceConfig {
 	}
 
 
-
 	public String getQueriesTextFilePath() {
 		return queriesTextFilePath;
 	}

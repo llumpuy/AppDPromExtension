@@ -1,0 +1,1 @@
+{"schema": {"metric_name":"string", "instance":"string", "job":"string", "unit":"integer", "kubernetes_node":"string", "metric_value":"float"}}
