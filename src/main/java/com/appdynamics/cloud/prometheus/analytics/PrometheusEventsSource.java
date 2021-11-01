@@ -286,7 +286,8 @@ public class PrometheusEventsSource implements AnalyticsEventsSource, Applicatio
 		request.addHeader("Accept", "application/json, text/plain, */*");
 
 		//TODO: review
-		request.addHeader("Authorization:Bearer", accessToken);
+		if (accessToken.length() != 0)
+			request.addHeader("Authorization", "Bearer " + accessToken);
 		//
 
 		//request.addHeader("Accept", "application/vnd.appd.events+json;v=2");
