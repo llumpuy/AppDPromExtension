@@ -114,7 +114,7 @@ public class ServiceConfig {
 	//
 	//TODO: review
 	public void setAccessToken(String accessToken) {
-		this.awsRegion = accessToken;
+		this.accessToken = accessToken;
 	}
 	//
 
