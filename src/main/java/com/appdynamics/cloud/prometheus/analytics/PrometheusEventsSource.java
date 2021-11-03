@@ -274,10 +274,8 @@ public class PrometheusEventsSource implements AnalyticsEventsSource, Applicatio
 
 	private String executePromQueryWithNoAuth(String promQl) throws Throwable {
 
-		//TODO: review
-		// String restEndpoint = this.constructEndpointQuery(promQl);
-		String restEndpoint = URLEncoder.encode(this.constructEndpointQuery(promQl), "UTF-8");
-		//
+
+		String restEndpoint = this.constructEndpointQuery(promQl);
 
 		CloseableHttpClient client = HttpClients.createDefault();
 		
@@ -348,7 +346,16 @@ public class PrometheusEventsSource implements AnalyticsEventsSource, Applicatio
 	}
 	
 	private String constructEndpointQuery(String promQl) {
-		return this.serviceConfig.getPrometheusUrl() + "?query=" + promQl;
+		//TODO review
+		//return this.serviceConfig.getPrometheusUrl() + "?query=" + promQl;
+		String urltxt;
+		try {
+			urltxt = this.serviceConfig.getPrometheusUrl() + "?query=" +  URLEncoder.encode(promQl,"UTF-8");
+		} catch(Exception e){
+			urltxt = this.serviceConfig.getPrometheusUrl() + "?query=" + promQl;
+		}
+		return urltxt;
+		//
 	}
 	
 	

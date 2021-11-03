@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.appdynamics.cloud.prometheus</groupId>
 	<artifactId>AppD-Prometheus-Extension</artifactId>
-	<version>1.0.4</version>
+	<version>1.0.5</version>
 	<name>AppD-Prometheus-Extension</name>
 	<description>AppDynamics integration with Prometheus</description>
 	<properties>
