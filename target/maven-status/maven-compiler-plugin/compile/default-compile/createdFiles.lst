@@ -14,6 +14,7 @@ com/appdynamics/cloud/prometheus/Logger.class
 com/appdynamics/cloud/prometheus/config/ServiceConfig.class
 com/appdynamics/cloud/prometheus/analytics/AnalyticsEventsSource.class
 com/appdynamics/cloud/prometheus/analytics/AnalyticsEventsPublisher.class
+com/appdynamics/cloud/prometheus/analytics/PrometheusEventsSource$1.class
 com/appdynamics/cloud/prometheus/analytics/PrometheusEventsSource.class
 com/appdynamics/cloud/prometheus/utils/StringUtils.class
 com/appdynamics/cloud/prometheus/AppdPrometheusAppListener.class

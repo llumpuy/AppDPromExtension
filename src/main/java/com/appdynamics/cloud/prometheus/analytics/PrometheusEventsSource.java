@@ -6,6 +6,8 @@ package com.appdynamics.cloud.prometheus.analytics;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,8 +19,11 @@ import java.net.URLEncoder;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.HttpClientUtils;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.ssl.SSLContextBuilder;
+import org.apache.http.ssl.TrustStrategy;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -272,13 +277,36 @@ public class PrometheusEventsSource implements AnalyticsEventsSource, Applicatio
 		return queryResults;
 	}
 
+
+	public static CloseableHttpClient getCloseableHttpClient()
+	{
+		CloseableHttpClient httpClient = null;
+		try {
+			httpClient = HttpClients.custom().
+					setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE).
+					setSSLContext(new SSLContextBuilder().loadTrustMaterial(null, new TrustStrategy()
+					{
+						public boolean isTrusted(X509Certificate[] arg0, String arg1) throws CertificateException
+						{
+							return true;
+						}
+					}).build()).build();
+		} catch (Exception e) {
+			logr.error("Error creating http client instance", e);
+		}
+		return httpClient;
+	}
+
 	private String executePromQueryWithNoAuth(String promQl) throws Throwable {
 
 
 		String restEndpoint = this.constructEndpointQuery(promQl);
 
-		CloseableHttpClient client = HttpClients.createDefault();
-		
+		//TODO: review
+		//CloseableHttpClient client = HttpClients.createDefault();
+		CloseableHttpClient client = getCloseableHttpClient();
+		//
+
 		HttpGet request = new HttpGet(restEndpoint);
 
 		request.addHeader("Accept", "application/json, text/plain, */*");
